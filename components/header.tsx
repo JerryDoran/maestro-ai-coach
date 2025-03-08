@@ -24,7 +24,7 @@ import Image from 'next/image';
 export default function Header() {
   return (
     <header className='fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60'>
-      <nav className='container mx-auto px-4 py-6 flex items-center justify-between'>
+      <nav className='container mx-auto px-4 py-5 flex items-center justify-between'>
         <Link href='/' className='flex items-center gap-2'>
           <Image src={logo} alt='logo' className='w-10' />
           <h1 className='text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-yellow-500 to-pink-500'>
@@ -81,7 +81,7 @@ export default function Header() {
           </SignedIn>
           <ThemeToggle />
           <SignedOut>
-            <SignInButton >
+            <SignInButton>
               <Button variant='outline' className='border-gray-700'>
                 Sign In
               </Button>

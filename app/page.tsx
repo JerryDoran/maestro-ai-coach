@@ -1,9 +1,10 @@
-
+import HeroSection from '@/components/features/hero-section';
 
 export default function Home() {
   return (
     <div>
-      <h1>Home</h1>
+      <div className='grid-background' />
+      <HeroSection />
     </div>
   );
 }
