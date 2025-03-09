@@ -79,7 +79,7 @@ export default function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
           </SignedIn>
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
           <SignedOut>
             <SignInButton>
               <Button variant='outline' className='border-gray-700'>
