@@ -1,3 +1,5 @@
+import CTA from '@/components/features/cta';
+import Faqs from '@/components/features/faq';
 import FeaturesSection from '@/components/features/features-section';
 import HeroSection from '@/components/features/hero-section';
 import HowItWorks from '@/components/features/how-it-works';
@@ -13,6 +15,8 @@ export default function Home() {
       <StatisticSection />
       <HowItWorks />
       <WhatUsersSay />
+      <Faqs />
+      <CTA />
     </div>
   );
 }

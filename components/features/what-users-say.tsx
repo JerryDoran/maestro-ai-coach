@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export default function WhatUsersSay() {
   return (
-    <section className='w-full py-12 md:py-24 lg:py-32 bg-background'>
+    <section className='w-full py-12 md:py-24 lg:py-32 bg-muted/50'>
       <div className='container mx-auto px-4 md:px-8'>
         <h2 className='text-3xl font-bold mb-10 text-center tracking-tighter'>
           What Our Users Say
