@@ -14,14 +14,14 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import logo from '@/public/maestro-logo.png';
 import Image from 'next/image';
+import { verifyUser } from '@/lib/verify-user';
 
-export default function Header() {
+export default async function Header() {
+  await verifyUser();
   return (
     <header className='fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60'>
       <nav className='container mx-auto px-4 py-5 flex items-center justify-between'>
