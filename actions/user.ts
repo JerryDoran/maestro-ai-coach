@@ -69,7 +69,7 @@ export async function updateUser(data: User) {
       { timeout: 10000 }
     );
 
-    return result.updatedUser;
+    return { success: true, ...result };
   } catch (error: any) {
     console.error('Error updating user and industry:', error.message);
     throw new Error('Failed to update profile');

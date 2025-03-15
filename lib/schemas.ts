@@ -7,16 +7,11 @@ export const onboardingFormSchema = z.object({
   subIndustry: z.string({
     required_error: 'Please select a specialization',
   }),
-  bio: z.string().max(500, 'Bio must be less than 500 characters').optional(),
-  experience: z
-    .string()
-    .transform((value) => parseInt(value, 10))
-    .pipe(
-      z
-        .number()
-        .min(0, 'Experience must be at least 0 years')
-        .max(50, 'Experience must be less than 50 years')
-    ),
+  bio: z.string().min(20, 'Bio must be more than 20 characters'),
+  experience: z.coerce
+    .number()
+    .min(0, 'Experience must be at least 0 years')
+    .max(50, 'Experience must be less than 50 years'),
   skills: z.string().transform((value) =>
     value
       ? value
