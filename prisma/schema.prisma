@@ -20,7 +20,7 @@ model User {
   name            String?
   imageUrl        String?
   industryInsight IndustryInsight? @relation(fields: [industry], references: [industry])
-  industry        String?
+  industry        String
   bio             String?
   experience      Int?
   skills          String[]
