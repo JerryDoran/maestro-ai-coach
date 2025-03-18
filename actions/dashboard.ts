@@ -3,11 +3,10 @@
 import db from '@/lib/prisma';
 import { auth } from '@clerk/nextjs/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { DemandLevel } from '@prisma/client';
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY!);
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 const model = genAI.getGenerativeModel({
-  model: 'gemini-1.5-flash',
+  model: 'gemini-2.0-flash',
 });
 
 // interface IndustryInsights {
@@ -28,9 +27,9 @@ export async function generateAIInsights(industry: string) {
       { "role": "string", "min": number, "max": number, "median": number, "location": "string" }
     ],
     "growthRate": number,
-    "demandLevel": "High" | "Medium" | "Low",
+    "demandLevel": "HIGH" | "MEDIUM" | "LOW",
     "topSkills": ["skill1", "skill2"],
-    "marketOutlook": "Positive" | "Neutral" | "Negative",
+    "marketOutlook": "POSITIVE" | "NEUTRAL" | "NEGATIVE",
     "keyTrends": ["trend1", "trend2"],
     "recommendedSkills": ["skill1", "skill2"]
   }
@@ -76,13 +75,11 @@ export async function getIndustryInsights() {
     const industryInsight = await db.industryInsight.create({
       data: {
         industry: user.industry as string,
-        growthRate: insights.growthRate,
-        demandLevel: insights.demandLevel as DemandLevel,
-        marketOutlook: 'NEUTRAL',
         ...insights,
         nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       },
     });
+    // console.log('INDUSTRY INSIGHT', industryInsight);
     return industryInsight;
   }
 

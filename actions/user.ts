@@ -2,6 +2,7 @@
 
 import db from '@/lib/prisma';
 import { auth } from '@clerk/nextjs/server';
+import { generateAIInsights } from './dashboard';
 
 type User = {
   bio?: string;
@@ -37,19 +38,31 @@ export async function updateUser(data: User) {
         });
 
         if (!industryInsight) {
-          industryInsight = await transaction.industryInsight.create({
+          const insights = await generateAIInsights(data.industry as string);
+
+          industryInsight = await db.industryInsight.create({
             data: {
               industry: data.industry as string,
-              salaryRanges: [],
-              growthRate: 0,
-              demandLevel: 'MEDIUM',
-              topSkills: [],
-              marketOutlook: 'NEUTRAL',
-              keyTrends: [],
-              recommendedSkills: [],
-              nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week from now
+              // growthRate: insights.growthRate,
+              // demandLevel: insights.demandLevel as DemandLevel,
+              // marketOutlook: 'NEUTRAL',
+              ...insights,
+              nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
             },
           });
+          // industryInsight = await transaction.industryInsight.create({
+          //   data: {
+          //     industry: data.industry as string,
+          //     salaryRanges: [],
+          //     growthRate: 0,
+          //     demandLevel: 'MEDIUM',
+          //     topSkills: [],
+          //     marketOutlook: 'NEUTRAL',
+          //     keyTrends: [],
+          //     recommendedSkills: [],
+          //     nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week from now
+          //   },
+          // });
         }
 
         const updatedUser = await transaction.user.update({

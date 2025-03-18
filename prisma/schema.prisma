@@ -20,7 +20,7 @@ model User {
   name            String?
   imageUrl        String?
   industryInsight IndustryInsight? @relation(fields: [industry], references: [industry])
-  industry        String
+  industry        String?
   bio             String?
   experience      Int?
   skills          String[]
@@ -69,7 +69,7 @@ model CoverLetter {
 
 model IndustryInsight {
   id                String        @id @default(cuid())
-  industry          String        @unique
+  industry          String?       @unique
   users             User[]
   salaryRanges      Json[]
   growthRate        Float
