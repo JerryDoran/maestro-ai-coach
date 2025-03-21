@@ -6,7 +6,6 @@ import {
   ResponsiveContainer,
   BarChart,
   Bar,
-  Rectangle,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -209,6 +208,43 @@ export default function DashboardView({ insights }: DashboardViewProps) {
           </div>
         </CardContent>
       </Card>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+        <Card>
+          <CardHeader>
+            <CardTitle>Key Industry Trends</CardTitle>
+            <CardDescription>
+              Current trends shaping the industry
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ul className='space-y-4'>
+              {insights.keyTrends.map((trend, index) => (
+                <li key={index} className='flex items-center space-x-2'>
+                  <div className='h-2 w-2 rounded-full bg-muted-foreground' />
+                  <p className='font-medium'>{trend}</p>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Recommended Skills</CardTitle>
+            <CardDescription>
+              Skills that are likely to be in demand
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ul className='space-y-4'>
+              {insights.topSkills.map((skill, index) => (
+                <Badge key={skill} variant='outline'>
+                  {skill}
+                </Badge>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
