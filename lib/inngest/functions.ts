@@ -42,13 +42,36 @@ export const generateIndustryInsights = inngest.createFunction(
   Growth rate should be a percentage.
   Include at least 5 skills and trends.
 `;
-      const response = await step.ai.wrap(
+      const result = await step.ai.wrap(
         'gemini',
         async (p) => {
           return await model.generateContent(p);
         },
         prompt
       );
+
+      if (result.response && result.response.candidates) {
+        const part = result.response.candidates[0].content.parts[0];
+        const text = 'text' in part ? part.text : '';
+        const cleanedUpText = text.replace(/```(?:json)?\n?/g, '').trim();
+        const insights = JSON.parse(cleanedUpText);
+
+        console.log(insights);
+        console.log('[INDUSTRY]:', industry);
+
+        await step.run(`Update ${industry} industry insights`, async () => {
+          await db.industryInsight.update({
+            where: {
+              industry: industry.industry as string,
+            },
+            data: {
+              ...insights,
+              lastUpdated: new Date(),
+              nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+            },
+          });
+        });
+      }
     }
   }
 );
