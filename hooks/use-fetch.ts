@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 
 function useFetch(cb: (...args: any[]) => any) {
-  const [data, setData] = useState(undefined);
+  const [data, setData] = useState<any>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown>(null);
 
